@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -119,7 +120,7 @@ static void make_missing_name(char *buf) { sprintf(buf, "Zz%u", rnd() % 100000);
 
 int main(int argc, char **argv) {
     const char *path = (argc > 1) ? argv[1] : "dataset_id_ascending.csv";
-    if (!load_csv(path)) { fprintf(stderr, "CSV 파일을 열 수 없습니다: %s\n", path); return 1; }
+    if (!load_csv(path)) { fprintf(stderr, "Cannot open CSV file: %s\n", path); return 1; }
 
     sorted = malloc(sizeof(Student) * n);
     int *res_a = malloc(sizeof(int) * n), *res_b = malloc(sizeof(int) * n);
@@ -157,7 +158,7 @@ int main(int argc, char **argv) {
     for (int i = 0; i < Kmax; i++) {
         cmp_count = 0; int ca = sequential_search(list[i], res_a); cum_seq[i + 1] = cum_seq[i] + cmp_count;
         cmp_count = 0; int cb = binary_search(list[i], res_b);     cum_bin[i + 1] = cum_bin[i] + cmp_count;
-        if (ca != cb) { fprintf(stderr, "검색 결과 불일치: %s\n", list[i]); return 1; }
+        if (ca != cb) { fprintf(stderr, "Result mismatch: %s\n", list[i]); return 1; }
     }
 
     int Ks[] = {1, 5, 10, 15, 20, 25, 30, 40, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000};
